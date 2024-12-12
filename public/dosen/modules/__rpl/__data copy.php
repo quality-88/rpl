@@ -1,0 +1,405 @@
+<div class="container-xxl">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<?= $__routes; ?>">
+                    <i class="bx bx-home-circle fs-4 lh-0"></i>
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="<?= $__routes_mod; ?>">
+                    RPL
+                </a>
+            </li>
+        </ol>
+    </nav>
+    <div class="row mb-4">
+        <div class="col-xxl col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="accordion" id="accordionExample">
+                <div class="card accordion-item">
+                    <h2 class="accordion-header" id="heading-Filter">
+                        <button type="button" class="accordion-button bg-primary text-white" data-bs-toggle="collapse"
+                            data-bs-target="#accordion-Filter" aria-expanded="true" aria-controls="accordion-Filter">
+                            Filter Data
+                        </button>
+                    </h2>
+                    <div id="accordion-Filter" class="accordion-collapse collapse <?= isset($__ta) ? 'show' : ''; ?>"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <form name="frmInput" action="" method="POST" enctype="multipart/form-data">
+
+                                <input type="hidden" name="__Token" class="form-control"
+                                    value="<?= @$__secret_key->Encrypt( date('sHis') . '|\|' . date('YmdH') . '|\|' . time() , 221 , 5 ); ?>"
+                                    required readonly>
+
+                                <input type="hidden" name="__Url" class="form-control" value="<?= $__routes_mod; ?>"
+                                    required readonly>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                        <div class="select2-input">
+                                            <div class="form-group">
+                                                <label>
+                                                    Pilih Tahun Ajaran
+                                                </label>
+                                                <select name="__Ta" class="form-control select2-kedua" required>
+                                                    <?php 
+                                                        if ( isset($__ta) ) {
+
+                                                            echo 
+                                                                "
+                                                                    <option value='". $__ta ."' selected>
+                                                                        ". $__ta ."
+                                                                    </option>
+                                                                    <option value='' disabled>
+                                                                        --- ##### ---
+                                                                    </option>
+                                                                ";
+
+                                                        } else {
+
+                                                            echo 
+                                                                "
+                                                                    <option value='' selected disabled>
+                                                                        --- Pilih Tahun Ajaran ---
+                                                                    </option>
+                                                                ";
+
+                                                        }
+
+                                                        foreach ( $__filter_ta__ AS $data => $__ta__ ) :
+
+                                                            echo 
+                                                                "
+                                                                    <option value='". $__ta__->Datas ."'>
+                                                                        ". $__ta__->Datas ."
+                                                                    </option>
+                                                                ";
+
+                                                        endforeach;
+
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-2">
+                                        <div class="select2-input">
+                                            <div class="form-group">
+                                                <label>
+                                                    Pilih Semester
+                                                </label>
+                                                <select name="__Semester" class="form-control select2-kedua" required>
+                                                    <?php 
+                                                        if ( isset($__semester) ) {
+
+                                                            echo 
+                                                                "
+                                                                    <option value='". $__semester ."' selected>
+                                                                        ". $__semester ."
+                                                                    </option>
+                                                                    <option value='' disabled>
+                                                                        --- ##### ---
+                                                                    </option>
+                                                                ";
+
+                                                        } else {
+
+                                                            echo 
+                                                                "
+                                                                    <option value='' selected disabled>
+                                                                        --- Pilih Semester ---
+                                                                    </option>
+                                                                ";
+
+                                                        }
+
+                                                        foreach ( $__filter_semester__ AS $data => $__semester__ ) :
+
+                                                            echo 
+                                                                "
+                                                                    <option value='". $__semester__->Datas ."'>
+                                                                        ". $__semester__->Datas ."
+                                                                    </option>
+                                                                ";
+
+                                                        endforeach;
+
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 my-2">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary" name="__BtnSubmit_Filter"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                                data-bs-html="true" title="Filter">
+                                                Filter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php if ( isset( $__ta ) && isset( $__semester ) ) { ?>
+<div class="container-xxl">
+    <div class="row mb-4">
+        <div class="col-xl-12 col-md-12 col-sm-12 mb-4 mb-md-0">
+            <div class="nav-align-top mb-6">
+                <ul class="nav nav-pills mb-4 nav-fill" role="tablist">
+                    <li class="nav-item mb-1 mb-sm-0">
+                        <a href="<?= $__routes_mod; ?>?__Ta=<?= $__ta; ?>&__Semester=<?= $__semester; ?>"
+                            class="nav-link active" aria-selected="true">
+                            <span class="d-none d-sm-block">
+                                <i class="tf-icons bx bx-user bx-sm me-1_5 align-text-bottom"></i>
+                                Assesor 1
+                            </span>
+                            <i class="bx bx-user bx-sm d-sm-none"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-1 mb-sm-0">
+                        <a href="<?= $__routes_mod; ?>/2?__Ta=<?= $__ta; ?>&__Semester=<?= $__semester; ?>"
+                            class="nav-link active" aria-selected="true">
+                            <span class="d-none d-sm-block">
+                                <i class="tf-icons bx bx-user bx-sm me-1_5 align-text-bottom"></i>
+                                Assesor 2
+                            </span>
+                            <i class="bx bx-user bx-sm d-sm-none"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item mb-1 mb-sm-0">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                            data-bs-target="#navs-pills-justified-assesor3"
+                            aria-controls="navs-pills-justified-assesor3" aria-selected="false">
+                            <span class="d-none d-sm-block">
+                                <i class="tf-icons bx bx-message-square bx-sm me-1_5 align-text-bottom"></i>
+                                Assesor 3
+                            </span>
+                            <i class="bx bx-message-square bx-sm d-sm-none"></i>
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="navs-pills-justified-assesor1" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomor</th>
+                                        <th class="text-center">Aksi</th>
+                                        <th class="text-center">ID Dosen</th>
+                                        <th class="text-center">Nama Dosen</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Progres</th>
+                                        <th class="text-center">Tanggal Daftar</th>
+                                        <th class="text-center">Tanggal Hapus</th>
+                                        <th class="text-center">Tahun Ajaran</th>
+                                        <th class="text-center">Prodi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=" table-border-bottom-0">
+
+                                    <?php foreach ( $__record_data_assesor_1__ AS $data => $__record_assesor_1__ ) : ?>
+
+                                    <tr>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['Nomor']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?php if ( $__record_assesor_1__['Cek_Status'] == 'Y' ) { ?>
+                                            <div>
+                                                <span class="badge bg-label-danger">
+                                                    Kunci
+                                                </span>
+                                            </div>
+                                            <?php } else { ?>
+                                            <div>
+                                                <a href="<?= $__routes_mod; ?>/assesor_1?__Id=<?= @$__secret_key->Encrypt( date('sHis') . '|\|' . $__record_assesor_1__['Id'] . '|\|' . time() , 221 , 5 ); ?>"
+                                                    class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
+                                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                    title="Input KRS Konversi">
+                                                    Input <br> KRS Konversi
+                                                </a>
+                                            </div>
+                                            <?php } ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['IdDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['NamaDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['Status']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="progress" style="height: 26px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                                    role="progressbar"
+                                                    style="width: <?= $__record_assesor_1__['Progres'] ?>%;"
+                                                    aria-valuenow="<?= $__record_assesor_1__['Progres'] ?>"
+                                                    aria-valuemin="0" aria-valuemax="100">
+                                                    <?= $__record_assesor_1__['Progres'] ?>%</div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['TglDaftar']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['TglHapus']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['Ta']; ?>/<?= $__record_assesor_1__['Semester']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_1__['Prodi']; ?>
+                                        </td>
+                                    </tr>
+
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="navs-pills-justified-assesor2" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomor</th>
+                                        <th class="text-center">ID Dosen</th>
+                                        <th class="text-center">Nama Dosen</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Progres</th>
+                                        <th class="text-center">Tanggal Daftar</th>
+                                        <th class="text-center">Tanggal Hapus</th>
+                                        <th class="text-center">Tahun Ajaran</th>
+                                        <th class="text-center">Prodi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=" table-border-bottom-0">
+
+                                    <?php foreach ( $__record_data_assesor_2__ AS $data => $__record_assesor_2__ ) : ?>
+
+                                    <tr>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['Nomor']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['IdDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['NamaDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['Status']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="progress" style="height: 26px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                                    role="progressbar"
+                                                    style="width: <?= $__record_assesor_2__['Progres'] ?>%;"
+                                                    aria-valuenow="<?= $__record_assesor_2__['Progres'] ?>"
+                                                    aria-valuemin="0" aria-valuemax="100">
+                                                    <?= $__record_assesor_2__['Progres'] ?>%</div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['TglDaftar']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['TglHapus']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['Ta']; ?>/<?= $__record_assesor_2__['Semester']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_2__['Prodi']; ?>
+                                        </td>
+                                    </tr>
+
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="navs-pills-justified-assesor3" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Nomor</th>
+                                        <th class="text-center">ID Dosen</th>
+                                        <th class="text-center">Nama Dosen</th>
+                                        <th class="text-center">Status</th>
+                                        <th class="text-center">Progres</th>
+                                        <th class="text-center">Tanggal Daftar</th>
+                                        <th class="text-center">Tanggal Hapus</th>
+                                        <th class="text-center">Tahun Ajaran</th>
+                                        <th class="text-center">Prodi</th>
+                                    </tr>
+                                </thead>
+                                <tbody class=" table-border-bottom-0">
+
+                                    <?php foreach ( $__record_data_assesor_3__ AS $data => $__record_assesor_3__ ) : ?>
+
+                                    <tr>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['Nomor']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['IdDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['NamaDosen']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['Status']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="progress" style="height: 26px;">
+                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                                    role="progressbar"
+                                                    style="width: <?= $__record_assesor_3__['Progres'] ?>%;"
+                                                    aria-valuenow="<?= $__record_assesor_3__['Progres'] ?>"
+                                                    aria-valuemin="0" aria-valuemax="100">
+                                                    <?= $__record_assesor_3__['Progres'] ?>%</div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['TglDaftar']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['TglHapus']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['Ta']; ?>/<?= $__record_assesor_3__['Semester']; ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <?= $__record_assesor_3__['Prodi']; ?>
+                                        </td>
+                                    </tr>
+
+                                    <?php endforeach; ?>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php } ?>
