@@ -229,7 +229,7 @@
 
                                                 if ( date('Y-m-d H:i:s') > $__record_assesor_1__['TglHapus'] AND $__record_assesor_1__['Cek_Status'] == 'Y' ) {
 
-                                                    echo 'asdas';
+                                                    
 
                                                 }
 
